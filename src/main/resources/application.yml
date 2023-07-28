@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: db
   jpa:
     show-sql: true
     properties:
