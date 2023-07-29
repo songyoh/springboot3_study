@@ -30,16 +30,17 @@ public class BlogViewController {
     }
 
     @GetMapping("/articles/{id}")
-    public String getArticle(@PathVariable Long id, Model model){
+    public String getArticle(@PathVariable Long id, Model model) {
         Article article = blogService.findById(id);
         model.addAttribute("article", new ArticleViewResponse(article));
 
         return "article";
     }
 
+
     @GetMapping("/new-article")
     // 1. id키를 가진 쿼리 파라미터의 값을 id 변수에 매핑(id는 없을 수도 있음)
-    public String newArticle(@RequestParam(required = false) Long id, Model model){
+    public String newArticle(@RequestParam(required = false) Long id, Model model) {
         if(id == null){ // 2. id 가 없으면 생성
             model.addAttribute("article", new ArticleViewResponse());
         }else{ // 3. id가 없으면 수정

@@ -7,11 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 public class Article {
 
     @Id
@@ -24,12 +26,6 @@ public class Article {
 
     @Column(name = "content", nullable = false)
     private String content;
-
-    @Builder
-    public Article(String title, String content){
-        this.title = title;
-        this.content = content;
-    }
 
     public void update(String title, String content){
         this.title = title;
@@ -60,5 +56,15 @@ public class Article {
 //    public String getContent(){
 //        return content;
 //    }
+
+    @Column(name = "author", nullable = false)
+    private String author;
+
+    @Builder
+    public Article(String author, String title, String content){
+        this.author = author;
+        this.title = title;
+        this.content = content;
+    }
 
 }
